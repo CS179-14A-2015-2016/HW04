@@ -24,9 +24,49 @@ Mechanics
 
 Format
 ====
-TODO
+The "card select" screen looks like this:
+```
+A - Available cards: 0 0 1 2 3 4 5 6 7 8 9 10 11 12 13
+a>
+```
+For player B, replace `A -` and `a>` appropriately.
 
-Tip: Use [this](http://stackoverflow.com/a/32008479) to "clear" the screen.
+Each card may only by used once, so once a card is used, it should not show up in the list of available cards.
+
+After player A selects a card, the screen should clear (try using [this](http://stackoverflow.com/a/32008479) to "clear" the screen) and print:
+
+```
+Press enter when player B is ready...
+```
+When enter is pressed, the screen is cleared and the card select screen for B is shown.
+Once player B selects a card, the screen gets cleard and the joust gets resolved:
+
+```
+Joust: [a card] vs [b card]
+[win line]
+Press enter when player A is ready...
+```
+where `[a card]` is the card that player A selected, and `[b card]` is the card that player B selected.
+
+The `[win line]` can be one of the following:
+ * `Player A wins!`
+ * `Player B wins!`
+ * `Both players draw!`
+
+If either player uses the joker (`0`) card, the `[win line]` changes to: 
+ * `Player A wins by chance!`
+ * `Player B wins by chance!`
+ * `Both players draw by chance!`
+
+When enter is pressed, the screen gets cleared and we're back to the card select screen of A.
+
+At the last joust, when all cards are used, the end line looks like
+```
+Player A: [a points]
+Player B: [b points]
+**[win line]**
+```
+Where `[a points]` is the total points of player A and `[b points]` is the total points of player B. `[win line]` states who won overall and the format is the same as the previous one (though note the additional asterisks).
 
 Sample
 ====
@@ -86,6 +126,6 @@ Joust: 0 vs 0
 Both players draw by chance!
 Player A: 4
 Player B: 10
-Player B wins!
+**Player B wins!**
 ```
   
