@@ -47,7 +47,7 @@ void vprint(vector<string> & v)
 //printing the player's deck/vectors
 void plaprint(vector<string> &topvec, vector<string> &plamidvec, vector<string> &botvec)
 {
-	cout << "Player 2 Decklist: " << endl;
+	cout << "Player 1 Decklist: " << endl;
 	vprint(topvec);
 	cout << endl;
 	vprint(plamidvec);
@@ -70,9 +70,18 @@ void plbprint(vector<string> &topvec, vector<string> &plbmidvec, vector<string> 
 
 int main()
 {
+	//variable declaration
+	int playerOne;
+	int playerTwo;
+	int scorePOne = 0;
+	int scorePTwo = 0;
+	int turns = 0;
 	int boardsize = 15;
 	int pbuffer;
 	int vecplace = 3;
+	int choicePOne;
+	int choicePtwo;
+	bool player = true;
 
 	//total board
 	vector<string> topvec = { "+", " - ", "+" };
@@ -116,11 +125,37 @@ int main()
 
 		vecplace += 2;
 	}
+	while (turns != 15)
+	{
+		if(player == true){
+		plaprint(topvec, plamidvec, botvec);
+		cout << "a>";
+		cin >> choicePOne;
+		player = false;
+		}
+		else if(player ==false)
+		{
+		plbprint(topvec, plbmidvec, botvec);
+		cout << "b>";
+		cin >> choicePTWO;
+		player = true;
+		turns += 1;
+		}
+	}
 
-	//board printing
-	plaprint(topvec, plamidvec, botvec);
-	plbprint(topvec, plbmidvec, botvec);
-
+	//winner display
+	if (scorePOne == scorePTwo)
+	{
+		cout << "Draw.";
+	}
+	else if (scorePOne > scorePTwo)
+	{
+		cout << "Player A wins.";
+	}
+	else if (scorePOne > scorePTwo)
+	{
+		cout << "Player B wins.";
+	}
 	//pause buffer 
 	cin >> pbuffer;
 	return EXIT_SUCCESS;
