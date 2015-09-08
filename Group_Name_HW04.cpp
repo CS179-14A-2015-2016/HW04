@@ -137,7 +137,7 @@ int main()
 		{
 		plbprint(topvec, plbmidvec, botvec);
 		cout << "b>";
-		cin >> choicePTWO;
+		cin >> choicePTwo;
 		player = true;
 		turns += 1;
 		}
