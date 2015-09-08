@@ -1,5 +1,5 @@
 
-#include <cstdlib>
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -14,7 +14,7 @@ int selected;
 int scoreA;
 int scoreB;
 int index;
-string wala;
+int wala;
 bool invalid;
 string again;
 vector<int> arrA;
@@ -125,39 +125,37 @@ int main()
 	do {
 		cout << "Press enter when Player A is ready...";
 		//i dont know yet
+			cout << "A - Available cards: ";
+			printCards(&(arrA[0]), arrA.size());
+			invalid = true;
+			do {
+				cout << "a> ";
+				cin >> a;
+				checkifValid(&arrA[0], &a, arrA.size());
+				if (invalid) {
+					cout << "You don't have that card!\n";
+				}
+			} while (invalid);
+			arrA.erase(arrA.begin() + index);
+			cout << string(50, '\n');
 
-		cout << "A - Available cards: ";
-		printCards(&(arrA[0]), arrA.size());
-		invalid = true;
-		do {
-			cout << "a> ";
-			cin >> a;
-			checkifValid(&arrA[0], &a, arrA.size());
-			if (invalid) {
-				cout << "You don't have that card!\n";
-			}
-		} while (invalid);
-		arrA.erase(arrA.begin() + index);
-		clearScreen();
 		cout << "Press enter when Player B is ready...";
 		//i don't know yet
 
-
-		cout << "B - Available cards: ";
-		printCards(&(arrB[0]), arrB.size());
-		invalid = true;
-		do {
-			cout << "b> ";
-			cin >> b;
-			checkifValid(&arrB[0], &b, arrB.size());
-			if (invalid) {
-				cout << "You don't have that card!\n";
-			}
-		} while (invalid);
+			cout << "B - Available cards: ";
+			printCards(&(arrB[0]), arrB.size());
+			invalid = true;
+			do {
+				cout << "b> ";
+				cin >> b;
+				checkifValid(&arrB[0], &b, arrB.size());
+				if (invalid) {
+					cout << "You don't have that card!\n";
+				}
+			} while (invalid);
 		arrB.erase(arrB.begin() + index);
 		checkWinner(a, b);
 		turn++;
-		
 	} while (turn < 15);
 
 	cout << "Final score:\n";
