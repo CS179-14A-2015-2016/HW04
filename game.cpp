@@ -1,4 +1,4 @@
-#include "stdafx.h"
+
 #include <cstdlib>
 #include <iostream>
 #include <string>
@@ -14,6 +14,7 @@ int selected;
 int scoreA;
 int scoreB;
 int index;
+string wala;
 bool invalid;
 string again;
 vector<int> arrA;
@@ -52,8 +53,42 @@ void checkifValid(const int *array, int *selected, int n) {
 }
 
 void checkWinner(int a, int b) {
-	cout << "Joust: " << a << " vs " << b << "\n";
-	if (a == b) { 
+	cout << "\nJoust: " << a << " vs " << b << "\n";
+	
+	if (a == 0 && b == 0)
+	{
+		float x = rand();
+		if (x > 75) {
+			cout << "Player A wins by chance!\n";
+			scoreA++;
+		}
+
+		else if (x > 50) {
+			cout << "Player B wins by chance!\n";
+			scoreB++;
+		}
+
+		else {
+			cout << "Both players draw by chance!\n";
+		}
+
+
+	}
+
+	else if (a == 0 || b == 0){
+		float x = rand();
+		if (x > 50) {
+			cout << "Player A wins by chance!\n";
+			scoreA++;
+		}
+		else{
+			cout << "Player B wins chance!\n";
+			scoreB++;
+		}
+
+	}
+
+	else if (a == b) { 
 		cout << "Both players draw!\n";
 	}
 	else if (a == 1 && b == 13) {
@@ -74,9 +109,8 @@ void checkWinner(int a, int b) {
 	}
 }
 
-//doesn't work to me lol :(
 void clearScreen() {
-	cout << "\033[2J\033[1;1H";
+	system("cls");
 }
 
 int main()
@@ -89,6 +123,8 @@ int main()
 	initCards();
 
 	do {
+		cout << "Press enter when Player A is ready...";
+		//i dont know yet
 
 		cout << "A - Available cards: ";
 		printCards(&(arrA[0]), arrA.size());
@@ -102,11 +138,9 @@ int main()
 			}
 		} while (invalid);
 		arrA.erase(arrA.begin() + index);
-		clearScreen(); // it doesnt work D:
-		do { //haha when u input another character it still loops.....
-			cout << "Press enter when Player B is ready...";
-			cin.get();
-		} while (cin.get() != '\n');
+		clearScreen();
+		cout << "Press enter when Player B is ready...";
+		//i don't know yet
 
 
 		cout << "B - Available cards: ";
@@ -121,11 +155,6 @@ int main()
 			}
 		} while (invalid);
 		arrB.erase(arrB.begin() + index);
-		do { //pls change this also ty
-			cout << "Press enter when Player B is ready...";
-			cin.get();
-		} while (cin.get() != '\n');
-
 		checkWinner(a, b);
 		turn++;
 		
@@ -149,4 +178,5 @@ int main()
 	if (again == "y") {
 		main();
 	}
+	return 0;
 }
