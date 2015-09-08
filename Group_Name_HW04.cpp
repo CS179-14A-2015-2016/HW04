@@ -80,7 +80,7 @@ int main()
 	int pbuffer;
 	int vecplace = 3;
 	int choicePOne;
-	int choiceTwo;
+	int choicePTwo;
 	bool player = true;
 
 	//total board
