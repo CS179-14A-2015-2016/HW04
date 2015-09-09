@@ -127,34 +127,81 @@ int main()
 	}
 	while (turns != 15)
 	{
-		if(player == true){
+		if(player == true)
+		{
+		cout << "Player A - Available cards"+"\n";
 		plaprint(topvec, plamidvec, botvec);
 		cout << "a>";
 		cin >> choicePOne;
+		cout << string(50, '\n');
+		//change choice in vector to X
 		player = false;
 		}
 		else if(player ==false)
 		{
+		cout << "Player A - Available cards"+"\n";
 		plbprint(topvec, plbmidvec, botvec);
 		cout << "b>";
 		cin >> choicePTwo;
+		cout << string(50, '\n');
 		player = true;
-		turns += 1;
+		
+		cout << "Joust: ["+ choicePOne + "] vs [" + choicePTwo + "]"+"\n";
+		
+		if(choicePOne == 0 && choicePTwo != 0)
+		{
+			turns +=1;
+		}
+		else if(choicePOne != 0 && choicePTwo == 0)
+		{
+			turns +=1;
+		}
+		else if(choicePOne == 0 && choicePTwo == 0)
+		{
+			turns +=1;
+		}
+		else if((choicePOne > choicePTwo)||((choicePOne == 1)&&(choicePTwo == 13)))
+		{
+			cout << "Player A wins!"+"\n";
+			scorePOne += 1;
+			turns +=1;
+			
+		}
+		else if((choicePOne < choicePTwo)||((choicePOne == 13)&&(choicePTwo == 1)))
+		{
+			cout << "Player B wins!"+"\n";
+			scorePTwo += 1;
+			turns +=1;
+			
+		}
+		else if(choicePOne == choicePTwo)
+		{
+			cout << "Both players draw!"+"\n";
+			turns += 1;
+		}
+		
+		
 		}
 	}
 
 	//winner display
 	if (scorePOne == scorePTwo)
 	{
-		cout << "Draw.";
+		cout << "Player A: " + scorePOne + "points." + "\n";
+		cout << "Player B: " + scorePTwo + "points." + "\n";
+		cout << "Both players draw!";
 	}
 	else if (scorePOne > scorePTwo)
 	{
-		cout << "Player A wins.";
+		cout << "Player A: " + scorePOne + "points." + "\n";
+		cout << "Player B: " + scorePTwo + "points." + "\n";
+		cout << "Player A wins!";
 	}
 	else if (scorePOne > scorePTwo)
 	{
-		cout << "Player B wins.";
+		cout << "Player A: " + scorePOne + "points." + "\n";
+		cout << "Player B: " + scorePTwo + "points." + "\n";
+		cout << "Player B wins!";
 	}
 	//pause buffer 
 	cin >> pbuffer;
