@@ -2,7 +2,10 @@
 //
 
 #include <iostream>
+<<<<<<< HEAD
 #include <random>
+=======
+>>>>>>> origin/master
 #include <cstdlib>
 #include <ctime>
 using namespace std;
@@ -25,23 +28,24 @@ int EndGameCounterDEBUG;
 int CompareCard()
 {
     //return 0 if draw, 1 if P1 win , 2 if P2 win
+<<<<<<< HEAD
 
     if ((cardA != 1) && (cardB != 13))
+=======
+    srand(time(0));
+
+    if ((cardA == 1) && (cardB == 13))
+>>>>>>> origin/master
     {
         cout << "Player A wins!" << endl;
         ++player1Score;
         return 1;
     }
-    else if ((cardA != 13) && (cardB != 1))
+    else if ((cardA == 13) && (cardB == 1))
     {
         cout << "Player B wins!" << endl;
         ++player2Score;
         return 2;
-    }
-    else if (cardA == cardB)
-    {
-        cout << "Both players draw!" << endl;
-        return 0;
     }
     else if ((cardA == 0) && (cardB != 0))
     {
@@ -93,13 +97,18 @@ int CompareCard()
             return 2;
         }
     }
+    else if (cardA == cardB)
+    {
+        cout << "Both players draw!" << endl;
+        return 0;
+    }
     else if (cardA > cardB)
     {
         cout << "Player A wins!" << endl;
         ++player1Score;
         return 1;
     }
-    else if (cardA < cardB)
+    else if (cardB > cardA)
     {
         cout << "Player B wins!" << endl;
         ++player2Score;
