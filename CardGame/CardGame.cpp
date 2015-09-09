@@ -2,6 +2,8 @@
 //
 
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 bool gameRunning;
@@ -22,7 +24,8 @@ int EndGameCounterDEBUG;
 int CompareCard()
 {
     //return 0 if draw, 1 if P1 win , 2 if P2 win
-    
+    srand(time(0));
+
     if ((cardA == 1) && (cardB == 13))
     {
         cout << "Player A wins!" << endl;
