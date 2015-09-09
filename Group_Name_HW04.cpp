@@ -138,7 +138,15 @@ int main()
 			plaprint(topvec, plamidvec, botvec);
 			cout << "a>";
 			cin >> choicePOne;
-
+			while(cin.fail())
+			{
+				cout << "Invalid input."<<endl;
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cout << "a>";
+				cin >> choicePOne;
+				
+			}
 			//formatting issue stuff
 			if (choicePOne < 10)
 			{
@@ -150,10 +158,32 @@ int main()
 			}
 
 			//checks if input is inside the vector
-			if (find(plamidvec.begin(), plamidvec.end(), strchoiceone) != plamidvec.end()) 
+			while((find(plamidvec.begin(), plamidvec.end(), strchoiceone) != plamidvec.end())!=1)
 			{
+				//choice not in vector
+				cout << "That is not in the decklist!" << endl;
+				cout << "a>";
+				cin >> choicePOne;
+			if (choicePOne < 10)
+			{
+				strchoiceone = " " + to_string(choicePOne) + " "; //comparison requirements
+			}
+			else
+			{
+				strchoiceone = " " + to_string(choicePOne); //comparison requirements
+			}
+
+			while(cin.fail())
+			{
+				cout << "Invalid input."<<endl;
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cout << "a>";
+				cin >> choicePOne;
+			}
 				//choice is in vector
-				if ((choicePOne == 0) && (flag == 0))
+			}
+			if ((choicePOne == 0) && (flag == 0))
 				{
 					plamidvec[1] = " X ";
 					flag = 1;
@@ -163,15 +193,8 @@ int main()
 					vplace = (choicePOne * 2) + 3;
 					plamidvec[vplace] = " X ";
 				}
-			}
-			else {
-				//choice not in vector
-				cout << "That is not in the decklist!" << endl;
-			}
-
+			
 			erase();
-			//cout << string(50, '\n');
-			//change choice in vector to X
 			player = false;
 		}
 		else if (player == false)
@@ -179,7 +202,14 @@ int main()
 			plbprint(topvec, plbmidvec, botvec);
 			cout << "b>";
 			cin >> choicePTwo;
-
+			while(cin.fail())
+			{
+				cout << "Invalid input."<<endl;
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cout << "b>";
+				cin >> choicePTwo;
+			}
 			//formatting issue stuff
 			if (choicePTwo < 10)
 			{
@@ -191,10 +221,31 @@ int main()
 			}
 
 			//checks if input is inside the vector
-			if (find(plbmidvec.begin(), plbmidvec.end(), strchoicetwo) != plbmidvec.end())
+			while((find(plbmidvec.begin(), plbmidvec.end(), strchoicetwo) != plbmidvec.end())!=1)
 			{
+				//choice not in vector
+				cout << "That is not in the decklist!" << endl;
+				cout << "b>";
+				cin >> choicePTwo;
+				if (choicePTwo < 10)
+			{
+				strchoicetwo = " " + to_string(choicePTwo) + " "; //comparison requirements
+			}
+			else
+			{
+				strchoicetwo = " " + to_string(choicePTwo); //comparison requirements
+			}
+				while(cin.fail())
+			{
+				cout << "Invalid input."<<endl;
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cout << "b>";
+				cin >> choicePTwo;
+			}
 				//choice is in vector
-				if ((choicePTwo == 0) && (flag2 == 0))
+			}
+			if ((choicePTwo == 0) && (flag2 == 0))
 				{
 					plbmidvec[1] = " X ";
 					flag2 = 1;
@@ -204,11 +255,6 @@ int main()
 					vplace = (choicePTwo * 2) + 3;
 					plbmidvec[vplace] = " X ";
 				}
-			}
-			else {
-				//choice not in vector
-				cout << "That is not in the decklist!" << endl;
-			}
 
 			erase();
 			//cout << string(50, '\n');
@@ -319,3 +365,5 @@ int main()
 	cin >> pbuffer;
 	return EXIT_SUCCESS;
 }
+//When I wrote this, only God and I understood what I was doing.
+//Now, God only knows.
