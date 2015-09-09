@@ -13,21 +13,11 @@ random_device ran;
 mt19937 dev(ran());
 mt19937 gen(ran());
 
-
-//determines what value would be in the step if ever
-int steprand(int& boardsize)
-{
-	int spaces = boardsize / 2;
-	uniform_int_distribution<> dis(-spaces, spaces);
-	int a = dis(dev);
-	return a;
-}
-
 //determines if a tile will have a random value or not
 bool tilerand()
 {
 	uniform_real_distribution<> dis(0, 1);
-	if (dis(gen) > 0.7)
+	if (dis(gen) > 0.5)
 	{
 	return true;
 	}
@@ -94,6 +84,7 @@ int main()
 	//condition variables 
 	int vplace;
 	int flag = 0;
+	int flag2 = 0;
 	string strchoiceone;
 	string strchoicetwo;
 
@@ -203,10 +194,10 @@ int main()
 			if (find(plbmidvec.begin(), plbmidvec.end(), strchoicetwo) != plbmidvec.end())
 			{
 				//choice is in vector
-				if ((choicePTwo == 0) && (flag == 0))
+				if ((choicePTwo == 0) && (flag2 == 0))
 				{
 					plbmidvec[1] = " X ";
-					flag = 1;
+					flag2 = 1;
 				}
 				else
 				{
@@ -229,16 +220,55 @@ int main()
 			//pla used joker
 			if (choicePOne == 0 && choicePTwo != 0)
 			{
+				if (tilerand() == true)
+				{
+					cout << "Player A wins by CHANCE!" << endl;
+					scorePOne += 1;
+				}
+				else
+				{
+					cout << "Player B wins" << endl;
+					scorePTwo += 1;
+				}
+
 				turns += 1;
 			}
 			//plb used joker
 			else if (choicePOne != 0 && choicePTwo == 0)
 			{
+				if (tilerand() == true)
+				{
+					cout << "Player B wins by CHANCE!" << endl;
+					scorePTwo += 1;
+				}
+				else
+				{
+					cout << "Player A wins" << endl;
+					scorePOne += 1;
+				}
 				turns += 1;
 			}
 			//both used joker
 			else if (choicePOne == 0 && choicePTwo == 0)
 			{
+				bool plachance = tilerand();
+				bool plbchance = tilerand();
+
+				if (plachance == plbchance)
+				{
+					cout << "Both players draw!" << endl;
+				}
+				else if (plachance == true)
+				{
+					cout << "Player A wins by CHANCE!" << endl;
+					scorePOne += 1;
+				}
+				else if (plbchance == true)
+				{
+					cout << "Player B wins by CHANCE!" << endl;
+					scorePTwo += 1;
+				}
+
 				turns += 1;
 			}
 			//other numbers
