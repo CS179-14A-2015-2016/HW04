@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <random>
+#include <algorithm>
+#include <conio.h>
 #include <limits>
 
 using namespace std;
@@ -11,8 +13,8 @@ random_device ran;
 mt19937 dev(ran());
 mt19937 gen(ran());
 
-/*
-//determines what value would be in the step if ever 
+
+//determines what value would be in the step if ever
 int steprand(int& boardsize)
 {
 	int spaces = boardsize / 2;
@@ -25,17 +27,15 @@ int steprand(int& boardsize)
 bool tilerand()
 {
 	uniform_real_distribution<> dis(0, 1);
-
 	if (dis(gen) > 0.7)
 	{
-		return true;
+	return true;
 	}
 	else
 	{
-		return false;
+	return false;
 	}
 }
-*/
 
 //prints all elements in a vector
 void vprint(vector<string> & v)
@@ -69,6 +69,12 @@ void plbprint(vector<string> &topvec, vector<string> &plbmidvec, vector<string> 
 	cout << endl << endl;
 }
 
+//clear screen
+void erase()
+{
+	system("cls");
+}
+
 
 int main()
 {
@@ -78,12 +84,16 @@ int main()
 	int scorePOne = 0;
 	int scorePTwo = 0;
 	int turns = 0;
-	int boardsize = 15;
+	const int boardsize = 15;
 	int pbuffer;
 	int vecplace = 3;
 	int choicePOne;
 	int choicePTwo;
 	bool player = true;
+
+	int vplace;
+	int flag = 0;
+	string strchoiceone;
 
 	//total board
 	vector<string> topvec = { "+", " - ", "+" };
@@ -127,60 +137,96 @@ int main()
 
 		vecplace += 2;
 	}
+
 	while (turns != 15)
 	{
-		if(player == true)
+		if (player == true)
 		{
-		plaprint(topvec, plamidvec, botvec);
-		cout << "a>";
-		cin >> choicePOne;
-		cout << string(50, '\n');
-		//change choice in vector to X
-		player = false;
+			plaprint(topvec, plamidvec, botvec);
+			cout << "a>";
+			cin >> choicePOne;
+
+			//formatting issue stuff
+			if (choicePOne < 10)
+			{
+				strchoiceone = " " + to_string(choicePOne) + " "; //comparison requirements
+				cout << strchoiceone << endl;
+			}
+			else
+			{
+				strchoiceone = " " + to_string(choicePOne); //comparison requirements
+				cout << strchoiceone << endl;
+			}
+
+			//checks if input is inside the vector
+			if (find(plamidvec.begin(), plamidvec.end(), strchoiceone) != plamidvec.end()) 
+			{
+				//choice is in vector
+				if ((choicePOne == 0) && (flag == 0))
+				{
+					plamidvec[1] = " X ";
+					flag = 1;
+				}
+				else 
+				{
+					vplace = (choicePOne * 2) + 3;
+					plamidvec[vplace] = " X ";
+				}
+			}
+			else {
+				//choice not in vector
+				cout << "That is not in the decklist!" << endl;
+			}
+
+			erase();
+			//cout << string(50, '\n');
+			//change choice in vector to X
+			player = false;
 		}
-		else if(player ==false)
+		else if (player == false)
 		{
-		plbprint(topvec, plbmidvec, botvec);
-		cout << "b>";
-		cin >> choicePTwo;
-		cout << string(50, '\n');
-		player = true;
-		
-		cout << "Joust: [" << choicePOne << "] vs [" + choicePTwo << "]"<<"\n";
-		
-		if(choicePOne == 0 && choicePTwo != 0)
-		{
-			turns +=1;
-		}
-		else if(choicePOne != 0 && choicePTwo == 0)
-		{
-			turns +=1;
-		}
-		else if(choicePOne == 0 && choicePTwo == 0)
-		{
-			turns +=1;
-		}
-		else if((choicePOne > choicePTwo)||((choicePOne == 1)&&(choicePTwo == 13)))
-		{
-			cout << "Player A wins!"<<"\n";
-			scorePOne += 1;
-			turns +=1;
-			
-		}
-		else if((choicePOne < choicePTwo)||((choicePOne == 13)&&(choicePTwo == 1)))
-		{
-			cout << "Player B wins!"<<"\n";
-			scorePTwo += 1;
-			turns +=1;
-			
-		}
-		else if(choicePOne == choicePTwo)
-		{
-			cout << "Both players draw!"<<"\n";
-			turns += 1;
-		}
-		
-		
+			plbprint(topvec, plbmidvec, botvec);
+			cout << "b>";
+			cin >> choicePTwo;
+			erase();
+			//cout << string(50, '\n');
+			player = true;
+
+			cout << "Joust: [" << choicePOne << "] vs [" << choicePTwo << "]" << "\n";
+
+			if (choicePOne == 0 && choicePTwo != 0)
+			{
+				turns += 1;
+			}
+			else if (choicePOne != 0 && choicePTwo == 0)
+			{
+				turns += 1;
+			}
+			else if (choicePOne == 0 && choicePTwo == 0)
+			{
+				turns += 1;
+			}
+			else if ((choicePOne > choicePTwo) || ((choicePOne == 1) && (choicePTwo == 13)))
+			{
+				cout << "Player A wins!" << "\n" << "\n";
+				scorePOne += 1;
+				turns += 1;
+
+			}
+			else if ((choicePOne < choicePTwo) || ((choicePOne == 13) && (choicePTwo == 1)))
+			{
+				cout << "Player B wins!" << "\n" << "\n";
+				scorePTwo += 1;
+				turns += 1;
+
+			}
+			else if (choicePOne == choicePTwo)
+			{
+				cout << "Both players draw!" << "\n" << "\n";
+				turns += 1;
+			}
+
+
 		}
 	}
 
@@ -189,19 +235,19 @@ int main()
 	{
 		cout << "Player A: " << scorePOne << "points." << "\n";
 		cout << "Player B: " << scorePTwo << "points." << "\n";
-		cout << "Both players draw!";
+		cout << "Both players draw!" << "\n";
 	}
 	else if (scorePOne > scorePTwo)
 	{
 		cout << "Player A: " << scorePOne << "points." << "\n";
 		cout << "Player B: " << scorePTwo << "points." << "\n";
-		cout << "Player A wins!";
+		cout << "Player A wins!" << "\n";
 	}
 	else if (scorePOne > scorePTwo)
 	{
 		cout << "Player A: " << scorePOne << "points." << "\n";
 		cout << "Player B: " << scorePTwo << "points." << "\n";
-		cout << "Player B wins!";
+		cout << "Player B wins!" << "\n";
 	}
 	//pause buffer 
 	cin >> pbuffer;
