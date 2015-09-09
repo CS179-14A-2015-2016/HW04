@@ -195,7 +195,10 @@ int main()
 				}
 			
 			erase();
+			cout << "Press Enter when Player B is ready...";
+			cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
 			player = false;
+			erase();
 		}
 		else if (player == false)
 		{
@@ -259,10 +262,10 @@ int main()
 
 			erase();
 			//cout << string(50, '\n');
-			player = true;
+			
 
 			cout << "Joust: [" << choicePOne << "] vs [" << choicePTwo << "]" << "\n";
-
+			
 			//rand here
 			//pla used joker
 			if (choicePOne == 0 && choicePTwo != 0)
@@ -338,7 +341,11 @@ int main()
 				cout << "Both players draw!" << "\n" << "\n";
 				turns += 1;
 			}
-
+			cout << "Press Enter when Player A is ready...";
+			cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+			player = true;
+			erase();
+			
 
 		}
 	}
