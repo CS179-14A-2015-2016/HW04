@@ -193,10 +193,10 @@ int main()
 					vplace = (choicePOne * 2) + 3;
 					plamidvec[vplace] = " X ";
 				}
-			
 			erase();
 			cout << "Press Enter when Player B is ready...";
-			cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+			//cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
+			getch();
 			player = false;
 			erase();
 		}
@@ -342,11 +342,9 @@ int main()
 				turns += 1;
 			}
 			cout << "Press Enter when Player A is ready...";
-			cin.ignore(std::numeric_limits<streamsize>::max(),'\n');
-			player = true;
+			getch();
 			erase();
-			
-
+			player = true;
 		}
 	}
 
