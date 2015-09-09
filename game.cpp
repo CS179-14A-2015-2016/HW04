@@ -6,7 +6,6 @@
 
 using namespace std;
 
-char player;
 int a;
 int b;
 int turn;
@@ -14,7 +13,7 @@ int selected;
 int scoreA;
 int scoreB;
 int index;
-int wala;
+char enter;
 bool invalid;
 string again;
 vector<int> arrA;
@@ -44,8 +43,8 @@ void printCards(const int *array, const int n) {
 void checkifValid(const int *array, int *selected, int n) {
 	for (int i = 0; i < n; i++)
 	{
-		if (array[i] == *selected) { 
-			invalid = false; 
+		if (array[i] == *selected) {
+			invalid = false;
 			index = i;
 			break;
 		}
@@ -54,7 +53,7 @@ void checkifValid(const int *array, int *selected, int n) {
 
 void checkWinner(int a, int b) {
 	cout << "\nJoust: " << a << " vs " << b << "\n";
-	
+
 	if (a == 0 && b == 0)
 	{
 		float x = rand();
@@ -75,20 +74,20 @@ void checkWinner(int a, int b) {
 
 	}
 
-	else if (a == 0 || b == 0){
+	else if (a == 0 || b == 0) {
 		float x = rand();
 		if (x > 50) {
 			cout << "Player A wins by chance!\n";
 			scoreA++;
 		}
-		else{
+		else {
 			cout << "Player B wins chance!\n";
 			scoreB++;
 		}
 
 	}
 
-	else if (a == b) { 
+	else if (a == b) {
 		cout << "Both players draw!\n";
 	}
 	else if (a == 1 && b == 13) {
@@ -124,36 +123,42 @@ int main()
 
 	do {
 		cout << "Press enter when Player A is ready...";
-		//i dont know yet
-			cout << "A - Available cards: ";
-			printCards(&(arrA[0]), arrA.size());
-			invalid = true;
-			do {
-				cout << "a> ";
-				cin >> a;
-				checkifValid(&arrA[0], &a, arrA.size());
-				if (invalid) {
-					cout << "You don't have that card!\n";
-				}
-			} while (invalid);
-			arrA.erase(arrA.begin() + index);
-			cout << string(50, '\n');
-
+		do {
+			cin.get();
+		} while (cin.get() != '\n');
+		cout << "A - Available cards: ";
+		printCards(&(arrA[0]), arrA.size());
+		invalid = true;
+		do {
+			cout << "a> ";
+			cin >> a;
+			checkifValid(&arrA[0], &a, arrA.size());
+			if (invalid) {
+				cout << "You don't have that card!\n";
+			}
+		} while (invalid);
+		arrA.erase(arrA.begin() + index);
+		
+		cout << string(50, '\n');
 		cout << "Press enter when Player B is ready...";
-		//i don't know yet
+		do {
+			cin.get();
+		} while (cin.get() != '\n');
 
-			cout << "B - Available cards: ";
-			printCards(&(arrB[0]), arrB.size());
-			invalid = true;
-			do {
-				cout << "b> ";
-				cin >> b;
-				checkifValid(&arrB[0], &b, arrB.size());
-				if (invalid) {
-					cout << "You don't have that card!\n";
-				}
-			} while (invalid);
+
+		cout << "B - Available cards: ";
+		printCards(&(arrB[0]), arrB.size());
+		invalid = true;
+		do {
+			cout << "b> ";
+			cin >> b;
+			checkifValid(&arrB[0], &b, arrB.size());
+			if (invalid) {
+				cout << "You don't have that card!\n";
+			}
+		} while (invalid);
 		arrB.erase(arrB.begin() + index);
+		cout << string(50, '\n');
 		checkWinner(a, b);
 		turn++;
 	} while (turn < 15);
