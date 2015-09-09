@@ -242,6 +242,7 @@ int main()
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
 				cout << "b>";
 				cin >> choicePTwo;
+				erase();
 			}
 				//choice is in vector
 			}
