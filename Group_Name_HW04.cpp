@@ -91,9 +91,11 @@ int main()
 	int choicePTwo;
 	bool player = true;
 
+	//condition variables 
 	int vplace;
 	int flag = 0;
 	string strchoiceone;
+	string strchoicetwo;
 
 	//total board
 	vector<string> topvec = { "+", " - ", "+" };
@@ -150,12 +152,10 @@ int main()
 			if (choicePOne < 10)
 			{
 				strchoiceone = " " + to_string(choicePOne) + " "; //comparison requirements
-				cout << strchoiceone << endl;
 			}
 			else
 			{
 				strchoiceone = " " + to_string(choicePOne); //comparison requirements
-				cout << strchoiceone << endl;
 			}
 
 			//checks if input is inside the vector
@@ -188,24 +188,60 @@ int main()
 			plbprint(topvec, plbmidvec, botvec);
 			cout << "b>";
 			cin >> choicePTwo;
+
+			//formatting issue stuff
+			if (choicePTwo < 10)
+			{
+				strchoicetwo = " " + to_string(choicePTwo) + " "; //comparison requirements
+			}
+			else
+			{
+				strchoicetwo = " " + to_string(choicePTwo); //comparison requirements
+			}
+
+			//checks if input is inside the vector
+			if (find(plbmidvec.begin(), plbmidvec.end(), strchoicetwo) != plbmidvec.end())
+			{
+				//choice is in vector
+				if ((choicePTwo == 0) && (flag == 0))
+				{
+					plbmidvec[1] = " X ";
+					flag = 1;
+				}
+				else
+				{
+					vplace = (choicePTwo * 2) + 3;
+					plbmidvec[vplace] = " X ";
+				}
+			}
+			else {
+				//choice not in vector
+				cout << "That is not in the decklist!" << endl;
+			}
+
 			erase();
 			//cout << string(50, '\n');
 			player = true;
 
 			cout << "Joust: [" << choicePOne << "] vs [" << choicePTwo << "]" << "\n";
 
+			//rand here
+			//pla used joker
 			if (choicePOne == 0 && choicePTwo != 0)
 			{
 				turns += 1;
 			}
+			//plb used joker
 			else if (choicePOne != 0 && choicePTwo == 0)
 			{
 				turns += 1;
 			}
+			//both used joker
 			else if (choicePOne == 0 && choicePTwo == 0)
 			{
 				turns += 1;
 			}
+			//other numbers
 			else if ((choicePOne > choicePTwo) || ((choicePOne == 1) && (choicePTwo == 13)))
 			{
 				cout << "Player A wins!" << "\n" << "\n";
