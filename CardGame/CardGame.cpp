@@ -5,6 +5,7 @@
 #include <random>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 using namespace std;
 
 bool gameRunning;
@@ -107,7 +108,6 @@ int CompareCard()
         ++player2Score;
         return 2;
     }
-    return 0;
 }
 
 void ClearScreen()
@@ -147,12 +147,14 @@ int Game()
     {
         if (cin.fail())
         {
-            cout << "Please input valid number. \n";
+            cout << "Please input valid integer. \n";
             cin.clear();
             cin.ignore();
         }
         cin >> player1ChoiceCard;
     }
+
+    cardA = player1ChoiceCard;
 
     ClearScreen();
 
@@ -177,9 +179,20 @@ int Game()
         }
         cin >> player2ChoiceCard;
     }
+    cardB = player2ChoiceCard;
 
-    cout << "Joust: " << player1ChoiceCard << " vs " << player2ChoiceCard;
-    if ()
+    cout << "Joust: " << player1ChoiceCard << " vs " << player2ChoiceCard << "\n";
+
+    int joustResult = CompareCard();
+
+    if (joustResult == 1)
+    {
+        player1Score++;
+    }
+    else if (joustResult == 2)
+    {
+        player2Score++;
+    }
 
     //EndGameCounterDEBUG++;
 
@@ -236,9 +249,23 @@ int main()
             }
         }
 
-        cout << "end \n";
+        cout << "Player A: " << player1Score << " points \n";
+        cout << "Player B: " << player2Score << " points \n";
 
-        cin.get();
+        if (player1Score > player2Score)
+        {
+            cout << "Player A Wins The Game!";
+        }
+        else if (player1Score < player2Score)
+        {
+            cout << "Player B Wins The Game!";
+        }
+        else
+        {
+            cout << "Game Ends With a Tie!";
+        }
+
+        //cin.get();
         //return 0;
     }
 
@@ -254,6 +281,7 @@ int main()
     }
 
 
+    cin.get();
 
     return 0;
 
