@@ -244,6 +244,22 @@ int main()
             }
         }
         
+        cout << "Player A: " << player1Score << endl;
+        cout << "Player B: " << player2Score << endl;
+        cout << "Draws: " << (15 - (player1Score + player2Score)) << endl;
+        if (player1Score > player2Score)
+        {
+            cout << "**Player A wins!**" << endl;
+        }
+        else if (player2Score > player1Score)
+        {
+            cout << "**Player B wins!**" << endl;
+        }
+        else
+        {
+            cout << "Player A and B are tied!!" << endl;
+        }
+        
         cout << "end \n";
         
         cin.get();
