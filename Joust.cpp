@@ -24,8 +24,9 @@ int main()
 		cardsB.push_back(i);
 	}
 	
-	int curCardA,curCardB,indA,indB,ptsA,ptsB;
-	
+	int curCardA,curCardB,ptsA,ptsB;
+	ptsA = 0;
+	ptsB = 0;
 	while(true)
 	{
 		bool a = true;
@@ -47,7 +48,7 @@ int main()
 			}
 			if(a)
 			{
-				cout<<"That card is not available. Please select another card.\n";
+				cout<<"That card is not available. Please select another card.\n\n";
 			}
 		}
 		system("CLS");
@@ -75,7 +76,7 @@ int main()
 			
 			if(a)
 			{
-				cout<<"That card is not available. Please select another card.\n";
+				cout<<"That card is not available. Please select another card.\n\n";
 			}
 		}
 		
@@ -90,26 +91,30 @@ int main()
 				
 				if(r<=50)
 				{
-					cout<<"Both players draw by chance!\n";
+					cout<<"Both players draw by chance!\n\n";
 				}
 				else if(r<=75)
 				{
-					cout<<"Player A wins by chance!\n";
+					cout<<"Player A wins by chance!\n\n";
+					ptsA++;
 				}
 				else
 				{
-					cout<<"Player B wins by chance!\n";
+					cout<<"Player B wins by chance!\n\n";
+					ptsB++;
 				}
 			}
 			else
 			{
 				if(r<=50)
 				{
-					cout<<"Player A wins by chance!\n";
+					cout<<"Player A wins by chance!\n\n";
+					ptsA++;
 				}
 				else
 				{
-					cout<<"Player B wins by chance!\n";
+					cout<<"Player B wins by chance!\n\n";
+					ptsB++;
 				}
 			}
 		}
@@ -117,33 +122,33 @@ int main()
 		{
 			if(curCardA==curCardB)
 			{
-				cout<<"Both players draw!\n";
+				cout<<"Both players draw!\n\n";
 			}
 			else if(curCardA==1 && curCardB==13)
 			{
 				ptsA++;
-				cout<<"Player A wins!\n";
+				cout<<"Player A wins!\n\n";
 			}
 			else if(curCardA==13 && curCardB==1)
 			{
 				ptsB++;
-				cout<<"Player B wins!\n";
+				cout<<"Player B wins!\n\n";
 			}
 			else if(curCardA>curCardB)
 			{
 				ptsA++;
-				cout<<"Player A wins!\n";
+				cout<<"Player A wins!\n\n";
 			}
 			else
 			{
 				ptsB++;
-				cout<<"Player B wins!\n";
+				cout<<"Player B wins!\n\n";
 			}
 		}
 		
 		if(cardsA.size()==0&&cardsB.size()==0)
 			break;
-		
+	
 		cout<<"Press enter when player A is ready...\n";
 		system("pause > nul");
 		
@@ -154,15 +159,15 @@ int main()
 	cout<<"**";
 	if(ptsA>ptsB)
 	{
-		cout<<"Player A wins!\n";
+		cout<<"Player A wins!";
 	}
 	else if(ptsA<ptsB)
 	{
-		cout<<"Player B wins!\n";
+		cout<<"Player B wins!";
 	}
 	else
 	{
-		cout<<"It's a draw!\n";
+		cout<<"It's a draw!";
 	}
 		
 	cout<<"**\n";
