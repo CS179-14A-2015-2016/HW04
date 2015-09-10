@@ -5,6 +5,7 @@
 #include <random>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 using namespace std;
 
 bool gameRunning;
@@ -17,6 +18,8 @@ int player1Score;
 int player2Score;
 int screenClear;
 int x;
+int cardA;
+int cardB;
 
 int EndGameCounterDEBUG;
 
@@ -26,19 +29,19 @@ int CompareCard()
     
     srand(time(0));
     
-    if ((player1ChoiceCard == 1) && (player2ChoiceCard == 13))
+    if ((cardA == 1) && (cardB == 13))
     {
         cout << "Player A wins!" << endl;
         ++player1Score;
         return 1;
     }
-    else if ((player1ChoiceCard == 13) && (player2ChoiceCard == 1))
+    else if ((cardA == 13) && (cardB == 1))
     {
         cout << "Player B wins!" << endl;
         ++player2Score;
         return 2;
     }
-    else if ((player1ChoiceCard == 0) && (player2ChoiceCard != 0))
+    else if ((cardA == 0) && (cardB != 0))
     {
         if (rand() % 100 < 50)
         {
@@ -53,7 +56,7 @@ int CompareCard()
             return 2;
         }
     }
-    else if ((player2ChoiceCard == 0) && (player1ChoiceCard != 0))
+    else if ((cardB == 0) && (cardA != 0))
     {
         if (rand() % 100 < 50)
         {
@@ -68,7 +71,7 @@ int CompareCard()
             return 1;
         }
     }
-    else if ((player1ChoiceCard == 0) && (player2ChoiceCard == 0))
+    else if ((cardA == 0) && (cardB == 0))
     {
         if (rand() % 100 < 50)
         {
@@ -88,24 +91,23 @@ int CompareCard()
             return 2;
         }
     }
-    else if (player1ChoiceCard == player2ChoiceCard)
+    else if (cardA == cardB)
     {
         cout << "Both players draw!" << endl;
         return 0;
     }
-    else if (player1ChoiceCard > player2ChoiceCard)
+    else if (cardA > cardB)
     {
         cout << "Player A wins!" << endl;
         ++player1Score;
         return 1;
     }
-    else if (player1ChoiceCard < player2ChoiceCard)
+    else if (cardB > cardA)
     {
         cout << "Player B wins!" << endl;
         ++player2Score;
         return 2;
     }
-    return 0;
 }
 
 void ClearScreen()
@@ -141,27 +143,23 @@ int Game()
     cout << "a> ";
     
     cin >> player1ChoiceCard;
-    while (cin.fail())
+    while ((cin.fail()) || (find(player1Hand.begin(),player1Hand.end(),player1ChoiceCard) == player1Hand.end()))
     {
-        if (cin.fail())
+        if ((cin.fail()) || (find(player1Hand.begin(),player1Hand.end(),player1ChoiceCard) == player1Hand.end()))
         {
-            cout << "Please input valid number. \n";
+            cout << "Please input valid integer. \n";
             cin.clear();
             cin.ignore();
         }
         cin >> player1ChoiceCard;
     }
+    player1Hand.erase(player1Hand.begin() + *find(player1Hand.begin(),player1Hand.end(),player1ChoiceCard));
+    
+    cardA = player1ChoiceCard;
     
     ClearScreen();
-    cin.clear();
-    cin.ignore();
     
     cout << "Press 'Enter' when Player B is ready... \n";
-    
-    if (cin.get() == '\n')
-    {
-        ClearScreen();
-    }
     
     cout << "B - Available cards: ";
     for (auto i = player2Hand.begin(); i != player2Hand.end(); ++i)
@@ -172,22 +170,32 @@ int Game()
     cout << "b> ";
     
     cin >> player2ChoiceCard;
-    while (cin.fail())
+    while ((cin.fail()) || (find(player2Hand.begin(),player2Hand.end(),player2ChoiceCard) == player2Hand.end()))
     {
-        if (cin.fail())
+        if ((cin.fail()) || (find(player2Hand.begin(),player2Hand.end(),player2ChoiceCard) == player2Hand.end()))
         {
-            cout << "Please input valid number. \n";
+            cout << "Please input valid integer. \n";
             cin.clear();
             cin.ignore();
         }
         cin >> player2ChoiceCard;
     }
+    player2Hand.erase(player2Hand.begin() + *find(player2Hand.begin(),player2Hand.end(),player2ChoiceCard));
     
-    ClearScreen();
+    cardB = player2ChoiceCard;
     
-    cout << "Joust: " << player1ChoiceCard << " vs " << player2ChoiceCard <<endl;
-    CompareCard();
-    //if ()
+    cout << "Joust: " << player1ChoiceCard << " vs " << player2ChoiceCard << "\n";
+    
+    int joustResult = CompareCard();
+    
+    if (joustResult == 1)
+    {
+        player1Score++;
+    }
+    else if (joustResult == 2)
+    {
+        player2Score++;
+    }
     
     //EndGameCounterDEBUG++;
     
@@ -196,7 +204,7 @@ int Game()
     //gameRunning = 0;
     //}
     
-    cin.get();
+    //cin.get();
     
     return 0;
 }
@@ -244,25 +252,23 @@ int main()
             }
         }
         
-        cout << "Player A: " << player1Score << endl;
-        cout << "Player B: " << player2Score << endl;
-        cout << "Draws: " << (15 - (player1Score + player2Score)) << endl;
+        cout << "Player A: " << player1Score << " points \n";
+        cout << "Player B: " << player2Score << " points \n";
+        
         if (player1Score > player2Score)
         {
-            cout << "**Player A wins!**" << endl;
+            cout << "Player A Wins The Game!";
         }
-        else if (player2Score > player1Score)
+        else if (player1Score < player2Score)
         {
-            cout << "**Player B wins!**" << endl;
+            cout << "Player B Wins The Game!";
         }
         else
         {
-            cout << "Player A and B are tied!!" << endl;
+            cout << "Game Ends With a Tie!";
         }
         
-        cout << "end \n";
-        
-        cin.get();
+        //cin.get();
         //return 0;
     }
     
@@ -278,8 +284,8 @@ int main()
     }
     
     
+    cin.get();
     
     return 0;
     
 }
-
