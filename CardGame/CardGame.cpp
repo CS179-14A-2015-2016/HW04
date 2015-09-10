@@ -17,8 +17,6 @@ int player1Score;
 int player2Score;
 int screenClear;
 int x;
-int cardA;
-int cardB;
 
 int EndGameCounterDEBUG;
 
@@ -113,27 +111,27 @@ int CompareCard()
 void ClearScreen()
 {
     while (screenClear <= 30)
-        {
-            cout << "\n";
-            screenClear++;
-        }
-        screenClear = 0;
+    {
+        cout << "\n";
+        screenClear++;
+    }
+    screenClear = 0;
 }
 
 int Game()
 {
     //cout << "hello world \n";
     //cout << "Hand A Size " << player1Hand.size() << "hand B Size " << player2Hand.size() << "\n";
-
+    
     cin.get();
-
+    
     cout << "Press 'Enter' when Player A is ready... \n";
-
+    
     if (cin.get() == '\n')
     {
         ClearScreen();
     }
-
+    
     cout << "A - Available cards: ";
     for (auto i = player1Hand.begin(); i != player1Hand.end(); ++i)
     {
@@ -141,7 +139,7 @@ int Game()
     }
     cout << "\n";
     cout << "a> ";
-
+    
     cin >> player1ChoiceCard;
     while (cin.fail())
     {
@@ -153,11 +151,18 @@ int Game()
         }
         cin >> player1ChoiceCard;
     }
-
+    
     ClearScreen();
-
+    cin.clear();
+    cin.ignore();
+    
     cout << "Press 'Enter' when Player B is ready... \n";
-
+    
+    if (cin.get() == '\n')
+    {
+        ClearScreen();
+    }
+    
     cout << "B - Available cards: ";
     for (auto i = player2Hand.begin(); i != player2Hand.end(); ++i)
     {
@@ -165,7 +170,7 @@ int Game()
     }
     cout << "\n";
     cout << "b> ";
-
+    
     cin >> player2ChoiceCard;
     while (cin.fail())
     {
@@ -177,19 +182,22 @@ int Game()
         }
         cin >> player2ChoiceCard;
     }
-
+    
+    ClearScreen();
+    
     cout << "Joust: " << player1ChoiceCard << " vs " << player2ChoiceCard <<endl;
+    CompareCard();
     //if ()
-
+    
     //EndGameCounterDEBUG++;
-
+    
     //if (EndGameCounterDEBUG >= 15)
     //{
-        //gameRunning = 0;
+    //gameRunning = 0;
     //}
-
+    
     cin.get();
-
+    
     return 0;
 }
 
@@ -199,10 +207,10 @@ int main()
     cout << "1. How to Play" <<endl;
     cout << "2. Start Game" <<endl;
     cout << "3. Exit" <<endl;
-
+    
     do {cin>>x;}
     while (x == 3);
-
+    
     if (x == 1)
     {
         cout << "How to Play" <<endl;
@@ -210,14 +218,14 @@ int main()
         cout << "2.  Each player uses a card to joust. Except for the jokers, a higher card beats a lower card. But 1 beats 13. The jokers randomly wins or loses against the other card. If both players chose jokers, then there's 50% chance of a draw, 25% chance of the the first player winning, and 25% chance of the other player winning." <<endl;
         cout << "3.  A player gets a point only when he wins the joust. For a draw, no points will be given to any player." <<endl;
         cout << "4.  The jousts will keep on going until all cards are used up. So there will be 15 rounds/jousts in total." << endl;
-
+        
         do
         {
             cin >> x;
         }
         while (x == 3);
     }
-
+    
     if (x == 2)
     {
         gameRunning = 1;
@@ -225,23 +233,23 @@ int main()
         player2Hand = {0,0,1,2,3,4,5,6,7,8,9,10,11,12,13};
         player1Score = 0;
         player2Score = 0;
-
+        
         while (gameRunning == 1)
         {
             Game();
-
+            
             if ((player1Hand.empty()) && (player2Hand.empty()))
             {
                 gameRunning = 0;
             }
         }
-
+        
         cout << "end \n";
-
+        
         cin.get();
         //return 0;
     }
-
+    
     if (x == 3)
     {
         do
@@ -249,13 +257,13 @@ int main()
             cin >> x;
         }
         while (x == 3);
-
+        
         system("pause");
     }
-
-
-
+    
+    
+    
     return 0;
-
+    
 }
 
