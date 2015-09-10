@@ -25,22 +25,22 @@ int EndGameCounterDEBUG;
 int CompareCard()
 {
     //return 0 if draw, 1 if P1 win , 2 if P2 win
-
+    
     srand(time(0));
-
-    if ((cardA == 1) && (cardB == 13))
+    
+    if ((player1ChoiceCard == 1) && (player2ChoiceCard == 13))
     {
         cout << "Player A wins!" << endl;
         ++player1Score;
         return 1;
     }
-    else if ((cardA == 13) && (cardB == 1))
+    else if ((player1ChoiceCard == 13) && (player2ChoiceCard == 1))
     {
         cout << "Player B wins!" << endl;
         ++player2Score;
         return 2;
     }
-    else if ((cardA == 0) && (cardB != 0))
+    else if ((player1ChoiceCard == 0) && (player2ChoiceCard != 0))
     {
         if (rand() % 100 < 50)
         {
@@ -55,7 +55,7 @@ int CompareCard()
             return 2;
         }
     }
-    else if ((cardB == 0) && (cardA != 0))
+    else if ((player2ChoiceCard == 0) && (player1ChoiceCard != 0))
     {
         if (rand() % 100 < 50)
         {
@@ -70,7 +70,7 @@ int CompareCard()
             return 1;
         }
     }
-    else if ((cardA == 0) && (cardB == 0))
+    else if ((player1ChoiceCard == 0) && (player2ChoiceCard == 0))
     {
         if (rand() % 100 < 50)
         {
@@ -90,18 +90,18 @@ int CompareCard()
             return 2;
         }
     }
-    else if (cardA == cardB)
+    else if (player1ChoiceCard == player2ChoiceCard)
     {
         cout << "Both players draw!" << endl;
         return 0;
     }
-    else if (cardA > cardB)
+    else if (player1ChoiceCard > player2ChoiceCard)
     {
         cout << "Player A wins!" << endl;
         ++player1Score;
         return 1;
     }
-    else if (cardB > cardA)
+    else if (player1ChoiceCard < player2ChoiceCard)
     {
         cout << "Player B wins!" << endl;
         ++player2Score;
@@ -178,8 +178,8 @@ int Game()
         cin >> player2ChoiceCard;
     }
 
-    cout << "Joust: " << player1ChoiceCard << " vs " << player2ChoiceCard;
-    if ()
+    cout << "Joust: " << player1ChoiceCard << " vs " << player2ChoiceCard <<endl;
+    //if ()
 
     //EndGameCounterDEBUG++;
 
