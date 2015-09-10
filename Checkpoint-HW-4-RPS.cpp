@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <string>
 
 using namespace std;
 
@@ -76,7 +77,7 @@ void playerAMove() {
     			cout << "That card has already been used!\n";
     		}
     		else if (deckA[indexA] >= 0 && deckA[indexA] <= 13 && indexA != -2) {
-    		    cout << string(100, '\n');
+    		    cout << string(1000, '\n');
     			cout << "Press enter when player B is ready...";
     			cin.get();
     			playerAEndTurn = true;
@@ -127,6 +128,7 @@ void playerBMove() {
     			cout << "That card has already been used!\n";
     		}
     		else if (deckB[indexB] >= 0 && deckB[indexB] <= 13 && indexB != -2) {
+    			cout << string(1000, '\n');
     			playerBEndTurn = true;
     		}
     		else {
