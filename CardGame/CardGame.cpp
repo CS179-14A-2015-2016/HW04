@@ -110,33 +110,76 @@ int CompareCard()
     return 0;
 }
 
-int Game()
+void ClearScreen()
 {
-    //cout << "hello world \n";
-
-    cout << "Press 'Enter' when Player A is ready... \n";
-
-    if (cin.get() == ' \n ')
-    {
-        //int tempCount;
-        while (screenClear <= 30)
+    while (screenClear <= 30)
         {
-            cout << "*\n";
+            cout << "\n";
             screenClear++;
         }
         screenClear = 0;
+}
+
+int Game()
+{
+    //cout << "hello world \n";
+    //cout << "Hand A Size " << player1Hand.size() << "hand B Size " << player2Hand.size() << "\n";
+
+    cin.get();
+
+    cout << "Press 'Enter' when Player A is ready... \n";
+
+    if (cin.get() == '\n')
+    {
+        ClearScreen();
     }
 
-    cout << "Available Cards: ";
+    cout << "A - Available cards: ";
     for (auto i = player1Hand.begin(); i != player1Hand.end(); ++i)
     {
-        cout << *i << " ";
+        cout << *i << ' ';
     }
-    cout << "\n" << "a>";
+    cout << "\n";
+    cout << "a> ";
 
+    cin >> player1ChoiceCard;
+    while (cin.fail())
+    {
+        if (cin.fail())
+        {
+            cout << "Please input valid number. \n";
+            cin.clear();
+            cin.ignore();
+        }
+        cin >> player1ChoiceCard;
+    }
 
+    ClearScreen();
 
+    cout << "Press 'Enter' when Player B is ready... \n";
 
+    cout << "B - Available cards: ";
+    for (auto i = player2Hand.begin(); i != player2Hand.end(); ++i)
+    {
+        cout << *i << ' ';
+    }
+    cout << "\n";
+    cout << "b> ";
+
+    cin >> player2ChoiceCard;
+    while (cin.fail())
+    {
+        if (cin.fail())
+        {
+            cout << "Please input valid number. \n";
+            cin.clear();
+            cin.ignore();
+        }
+        cin >> player2ChoiceCard;
+    }
+
+    cout << "Joust: " << player1ChoiceCard << " vs " << player2ChoiceCard;
+    if ()
 
     //EndGameCounterDEBUG++;
 
@@ -144,6 +187,8 @@ int Game()
     //{
         //gameRunning = 0;
     //}
+
+    cin.get();
 
     return 0;
 }
@@ -178,6 +223,8 @@ int main()
         gameRunning = 1;
         player1Hand = {0,0,1,2,3,4,5,6,7,8,9,10,11,12,13};
         player2Hand = {0,0,1,2,3,4,5,6,7,8,9,10,11,12,13};
+        player1Score = 0;
+        player2Score = 0;
 
         while (gameRunning == 1)
         {
