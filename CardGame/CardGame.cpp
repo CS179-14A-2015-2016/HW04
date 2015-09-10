@@ -143,9 +143,9 @@ int Game()
     cout << "a> ";
 
     cin >> player1ChoiceCard;
-    while (cin.fail())
+    while ((cin.fail()) || (find(player1Hand.begin(),player1Hand.end(),player1ChoiceCard) == player1Hand.end()))
     {
-        if (cin.fail())
+        if ((cin.fail()) || (find(player1Hand.begin(),player1Hand.end(),player1ChoiceCard) == player1Hand.end()))
         {
             cout << "Please input valid integer. \n";
             cin.clear();
@@ -153,6 +153,7 @@ int Game()
         }
         cin >> player1ChoiceCard;
     }
+    player1Hand.erase(player1Hand.begin() + *find(player1Hand.begin(),player1Hand.end(),player1ChoiceCard));
 
     cardA = player1ChoiceCard;
 
@@ -169,16 +170,18 @@ int Game()
     cout << "b> ";
 
     cin >> player2ChoiceCard;
-    while (cin.fail())
+    while ((cin.fail()) || (find(player2Hand.begin(),player2Hand.end(),player2ChoiceCard) == player2Hand.end()))
     {
-        if (cin.fail())
+        if ((cin.fail()) || (find(player2Hand.begin(),player2Hand.end(),player2ChoiceCard) == player2Hand.end()))
         {
-            cout << "Please input valid number. \n";
+            cout << "Please input valid integer. \n";
             cin.clear();
             cin.ignore();
         }
         cin >> player2ChoiceCard;
     }
+    player2Hand.erase(player2Hand.begin() + *find(player2Hand.begin(),player2Hand.end(),player2ChoiceCard));
+
     cardB = player2ChoiceCard;
 
     cout << "Joust: " << player1ChoiceCard << " vs " << player2ChoiceCard << "\n";
@@ -201,7 +204,7 @@ int Game()
         //gameRunning = 0;
     //}
 
-    cin.get();
+    //cin.get();
 
     return 0;
 }
