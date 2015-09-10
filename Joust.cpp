@@ -114,12 +114,20 @@ int main()
 			}
 		}
 		else
-		{		
-			curCardA%=13;
-			curCardB%=13;
+		{
 			if(curCardA==curCardB)
 			{
 				cout<<"Both players draw!\n";
+			}
+			else if(curCardA==1 && curCardB==13)
+			{
+				ptsA++;
+				cout<<"Player A wins!\n";
+			}
+			else if(curCardA==13 && curCardB==1)
+			{
+				ptsB++;
+				cout<<"Player B wins!\n";
 			}
 			else if(curCardA>curCardB)
 			{
