@@ -1,97 +1,89 @@
 #include <iostream>
-#include <stdlib>
+#include <vector>
+#include <stdlib.h>
 #include <cstdio>
 #include <string>
-#include <random>
+#include <time.h>
 
 using namespace std;
 
 int main()
 {
-	random_device rd;
-	mt19937 mt(rd());
-	uniform_int_distribution dist(0,100);
+	srand(time(0));
+	
 	vector<int> cardsA;
 	vector<int> cardsB;
-	cardsA.push(0);
-	cardsA.push(0);
-	cardsB.push(0);
-	cardsB.push(0);
+	cardsA.push_back(0);
+	cardsA.push_back(0);
+	cardsB.push_back(0);
+	cardsB.push_back(0);
 	
 	for(int i=1;i<=13;i++)
 	{
-		cardsA.push(i);
-		cardsB.push(i);
+		cardsA.push_back(i);
+		cardsB.push_back(i);
 	}
 	
 	int curCardA,curCardB,indA,indB,ptsA,ptsB;
 	
 	while(true)
 	{
-		
-		while(true)
+		bool a = true;
+		while(a)
 		{
 			cout<<"A - Available cards:";
 			for(int i=0;i<cardsA.size();i++)
 				cout<<" "<<cardsA.at(i);
-			cout<<"\na>\n";
+			cout<< "\n" << "a> ";
 			cin>>curCardA;
 			
-			bool found=false;
 			for(int i=0;i<cardsA.size();i++)
 			{
 				if(cardsA.at(i)==curCardA)
 				{
-					found=true;
+					a=false;
 					cardsA.erase(cardsA.begin()+i);
 				}
 			}
-			if(!found)
+			if(a)
 			{
 				cout<<"That card is not available. Please select another card.\n";
-				continue;
 			}
-			system("CLS");
-			cout<<"Press enter when player B is ready...";
-			system("pause > nul");
-			a=false;
-			break;
 		}
+		system("CLS");
+		cout<<"Press enter when player B is ready...\n";
+		system("pause > nul");
 		
-		while(true)
+		a = true;
+		while(a)
 		{
 			system("CLS");
 			cout<<"B - Available cards:";
 			for(int i=0;i<cardsB.size();i++)
 				cout<<" "<<cardsB.at(i);
-			cout<<"\nb>\n";
+			cout<<"\n" << "b> ";
 			cin>>curCardB;
 			
-			bool found=false;
 			for(int i=0;i<cardsB.size();i++)
 			{
-				if(cardsA.at(i)==curCardB)
+				if(cardsB.at(i)==curCardB)
 				{
-					found=true;
+					a=false;
 					cardsB.erase(cardsB.begin()+i);
 				}
 			}
 			
-			if(!found)
+			if(a)
 			{
 				cout<<"That card is not available. Please select another card.\n";
-				continue;
 			}
-			a=false;
-			break;
-			
 		}
 		
 		system("CLS");
 		cout<<"Joust "<<curCardA<<" vs "<<curCardB<<"\n";
 		if(curCardA==0||curCardB==0)
 		{
-			int r=dist(mt);
+			int r=rand()%101;
 			
 			if(curCardA==0&&curCardB==0)
 			{
@@ -141,10 +133,10 @@ int main()
 			}
 		}
 		
-		if(curCardA.size()==0&&curCardB.size()==0)
+		if(cardsA.size()==0&&cardsB.size()==0)
 			break;
 		
-		cout<<"Press enter when player A is ready...";
+		cout<<"Press enter when player A is ready...\n";
 		system("pause > nul");
 		
 	}
@@ -156,7 +148,7 @@ int main()
 	{
 		cout<<"Player A wins!\n";
 	}
-	else if(ptsA==ptsB)
+	else if(ptsA<ptsB)
 	{
 		cout<<"Player B wins!\n";
 	}
